@@ -1,26 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from 'react';
 
+import './App.css';
+import axios from 'axios';
+
+
+export type User = {
+  [key: string]: string;
+}
 function App() {
+  const [banco,setBanco] = React.useState<User>({});
+
+
+  useEffect(() => {
+    axios.get('https://toptank-6fe9f-default-rtdb.firebaseio.com/ranking.json')
+    .then((response) => {
+      setBanco(response.data);
+    })
+
+  },[])
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='container'> 
+    <h1>Jogo <small>Zombie</small></h1>
+      {Object.keys(banco).map((key) => {
+        return (
+          <div className='formulario'>
+            <p>Nome: {key}</p>
+            <p>Pontuação: {banco[key]}</p>
+          </div>
+        )
+      })}
+      <a href='https://bucolic-buttercream-33e5fb.netlify.app'><button>Jogar</button></a>
     </div>
   );
+
 }
 
 export default App;
