@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-
 import './App.css';
 import axios from 'axios';
+
 
 
 export type User = {
@@ -26,15 +26,18 @@ function App() {
       {Object.keys(banco).map((key) => {
         return (
           <div className='formulario'>
-            <p>Nome: {key}</p>
-            <p>Pontuação: {banco[key]}</p>
+            <table>
+              <tr>
+            <th>Nome: {key}</th>
+            <th>Pontuação: {banco[key]}</th>
+            </tr>
+            </table>
           </div>
         )
       })}
       <a href='https://bucolic-buttercream-33e5fb.netlify.app'><button>Jogar</button></a>
     </div>
-  );
-
+);
 }
 
 export default App;
